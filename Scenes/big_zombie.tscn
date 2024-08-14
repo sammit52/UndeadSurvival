@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cftu444a6qg4r"]
+
+[ext_resource type="Script" path="res://Code/zombie.gd" id="1_bwaej"]
+[ext_resource type="Texture2D" uid="uid://ctqvyi55yjy51" path="res://Assets/StrongZombie.png" id="2_gbp7v"]
+
+[node name="Normal Zombie" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_bwaej")
+speed = 75.0
+direction_smoothing = 0.04
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="StrongZombie" type="Sprite2D" parent="."]
+position = Vector2(6, -2.38419e-07)
+scale = Vector2(0.0555617, 0.0552084)
+texture = ExtResource("2_gbp7v")

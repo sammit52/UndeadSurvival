@@ -1,11 +1,11 @@
 extends CharacterBody2D
 
-var speed : float = 200.0
+@export var speed : float = 150.0
 var player : Node2D = null
 
 # The current direction and speed, with smoothing
 var current_velocity : Vector2 = Vector2.ZERO
-var direction_smoothing : float = 0.1  # Smoothing factor (0 = no smoothing, 1 = instant)
+@export var direction_smoothing : float = 0.05  # Smoothing factor (0 = no smoothing, 1 = instant)
 
 func _ready() -> void:
 	var players = get_tree().get_nodes_in_group("player")
