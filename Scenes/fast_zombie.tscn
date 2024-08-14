@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk6u5yqwmopoh"]
+
+[ext_resource type="Script" path="res://Scenes/CharacterBody2D.gd" id="1_k5aw6"]
+[ext_resource type="Texture2D" uid="uid://de8bvfph18kkh" path="res://Assets/FastZombie.png" id="2_o77tx"]
+
+[node name="Fast Zombie" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_k5aw6")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="FastZombie" type="Sprite2D" parent="."]
+position = Vector2(3, 5.96046e-08)
+scale = Vector2(0.0518176, 0.0518176)
+texture = ExtResource("2_o77tx")

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2iceab2dvuph"]
+
+[ext_resource type="Script" path="res://Scenes/CharacterBody2D.gd" id="1_kfor4"]
+[ext_resource type="Texture2D" uid="uid://ci8ptklyjyafa" path="res://Assets/NormalZombie.png" id="2_ub52x"]
+
+[node name="Normal Zombie" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_kfor4")
+
+[node name="NormalZombie" type="Sprite2D" parent="."]
+position = Vector2(4, 0)
+scale = Vector2(0.0449148, 0.0449148)
+texture = ExtResource("2_ub52x")
+
+[node name="Timer" type="Timer" parent="."]
