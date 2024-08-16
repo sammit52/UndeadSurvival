@@ -1,16 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhxnh6fth4dlo"]
+[gd_scene load_steps=4 format=3 uid="uid://bhxnh6fth4dlo"]
 
 [ext_resource type="Script" path="res://Code/zombie.gd" id="1_k5aw6"]
 [ext_resource type="Texture2D" uid="uid://de8bvfph18kkh" path="res://Assets/FastZombie.png" id="2_o77tx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_45q7o"]
+radius = 8.0
 
 [node name="Fast Zombie" type="CharacterBody2D" groups=["enemy"]]
 script = ExtResource("1_k5aw6")
 speed = 175.0
 direction_smoothing = 0.1
 
-[node name="Timer" type="Timer" parent="."]
-
 [node name="FastZombie" type="Sprite2D" parent="."]
 position = Vector2(3, 5.96046e-08)
 scale = Vector2(0.0518176, 0.0518176)
 texture = ExtResource("2_o77tx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_45q7o")
+disabled = true

@@ -29,6 +29,3 @@ func _process(delta: float) -> void:
 		# Rotate the enemy to face the direction of movement
 		if current_velocity.length() > 0:
 			rotation = current_velocity.angle()
-
-
-
