@@ -6,6 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_emf0o"]
 
 [node name="Normal Zombie" type="CharacterBody2D" groups=["enemy"]]
+scale = Vector2(2, 2)
 script = ExtResource("1_kfor4")
 speed = 125.0
 

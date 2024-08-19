@@ -7,6 +7,7 @@
 radius = 8.0
 
 [node name="Fast Zombie" type="CharacterBody2D" groups=["enemy"]]
+scale = Vector2(2, 2)
 script = ExtResource("1_k5aw6")
 speed = 175.0
 direction_smoothing = 0.1
