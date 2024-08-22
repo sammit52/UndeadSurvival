@@ -3,8 +3,12 @@ extends CharacterBody2D
 @export var speed: float = 200.0  # Movement speed in pixels per second
 @export var bullet_scene : PackedScene
 @onready var marker_2d: Marker2D = $Marker2D
-
+var guns = {0:["Pistol",true,5,99],1:["Gun1",true,2,50],2:["Gun2",true,2,50],3:["Gun3",false,2,50]}
+#name, owned, damage, max ammo
 var gun_names = ["Pistol", "Gun1", "Gun2", "Gun3", "Gun4", "Gun5", "Gun6", "Gun7", "Gun8", "Gun9"] # List of gun animation names
+
+var unlocked_guns = [0,3]
+
 var current_gun_index = 0
 
 # Reference to the AnimatedSprite2D node
@@ -15,8 +19,8 @@ func _ready():
 	equip_gun(current_gun_index)
 	
 func equip_gun(index: int):
-	if index >= 0 and index < gun_names.size():
-		gun_sprite.animation = gun_names[index]
+	if index >= 0 and index <= unlocked_guns.size():
+		gun_sprite.animation = guns[index][0]
 
 func _process(delta: float) -> void:
 	var velocity: Vector2 = Vector2.ZERO
@@ -44,34 +48,33 @@ func _process(delta: float) -> void:
 	var direction = (mouse_position - global_position).angle()
 	rotation = direction
 	
-	
-	
 	# Need to make it so some gun indexes are skipped when they're not unlocked, 
 		# Number keys to switch guns
-	for i in range(1, gun_names.size() + 1):
-		if Input.is_action_just_pressed("ui_select_weapon_" + str(i)):
-			current_gun_index = i - 1
-			equip_gun(current_gun_index)
-			# Code to move where the bullet shoots out of based on barrel size
-			if i > 2:
-				# marker_2d. need to add code that moves the marker 2d across a few pizels closer to the barrel of the gun
-				pass
-			elif i <= 2:
-				# marker 2d back to position.
-				pass
+	for i in range(1, guns.size() + 1):
+		if i in unlocked_guns:
+			if Input.is_action_just_pressed("ui_select_weapon_" + str(i)):
+				current_gun_index = i - 1
+				equip_gun(current_gun_index)
+				# Code to move where the bullet shoots out of based on barrel size
+				if i > 2:
+					# marker_2d. need to add code that moves the marker 2d across a few pizels closer to the barrel of the gun
+					pass
+				elif i <= 2:
+					# marker 2d back to position.
+					pass
 
 	# Scroll wheel to switch guns
 	if Input.is_action_just_pressed("ui_scroll_up"):
 		current_gun_index -= 1
 		if current_gun_index < 0:
-			current_gun_index = gun_names.size() - 1
-		equip_gun(current_gun_index)
+			current_gun_index = unlocked_guns.size() - 1
+		equip_gun(unlocked_guns[current_gun_index])
 	
 	if Input.is_action_just_pressed("ui_scroll_down"):
 		current_gun_index += 1
-		if current_gun_index >= gun_names.size():
+		if current_gun_index >= unlocked_guns.size():
 			current_gun_index = 0
-		equip_gun(current_gun_index)
+		equip_gun(unlocked_guns[current_gun_index])
 
 	
 	if Input.is_action_just_pressed("shoot"):
