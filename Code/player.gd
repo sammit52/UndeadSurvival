@@ -3,12 +3,12 @@ extends CharacterBody2D
 @export var speed: float = 200.0  # Movement speed in pixels per second
 @export var bullet_scene : PackedScene
 @onready var marker_2d: Marker2D = $Marker2D
-var guns = {0:["Pistol",5,99],1:["Gun1",2,50],2:["Gun2",2,50],3:["Gun3",2,50],4:["Gun4",2,50],5:["Gun5",2,50],6:["Gun6",2,50],7:["Gun7",2,50],8:["Gun8",2,50],9:["Gun9",2,50]}
-#name, damage, max ammo (potentially add owned? true or false value)
+var guns = {0:["Pistol",5,99,false,0.0,0,400],1:["Gun1",2,50,true,0.075,7.5,225],2:["Gun2",2,50,true,0.2,1.5,400],3:["Gun3",2,50,true,0.2,2,400],4:["Gun4",2,50,true,0.2,1,400],5:["Gun5",2,50,true,0.2,1,400],6:["Gun6",2,50,true,0.2,1,400],7:["Gun7",2,50,true,0.2,1,400],8:["Gun8",2,50,true,0.2,1,400],9:["Gun9",2,50,true,0.2,1,400]}
+#name, damage, max ammo, automatic?, time, 
 #var gun_names = ["Pistol", "Gun1", "Gun2", "Gun3", "Gun4", "Gun5", "Gun6", "Gun7", "Gun8", "Gun9"] # List of gun animation names
 
 var unlocked_guns = [0,1,2,3]
-
+var can_shoot = true
 var current_gun_index = 0
 
 # Reference to the AnimatedSprite2D node
@@ -49,6 +49,7 @@ func _process(delta: float) -> void:
 	var direction = (mouse_position - global_position).angle()
 	rotation = direction
 	
+	# Old code for changing guns compare to new code
 	# Need to make it so some gun indexes are skipped when they're not unlocked, 
 		# Number keys to switch guns
 	#for i in range(1, guns.size()+1):
@@ -79,15 +80,27 @@ func _process(delta: float) -> void:
 		equip_gun(unlocked_guns[current_gun_index])
 
 	
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_pressed("shoot") and can_shoot:
+		can_shoot = false
+		if guns[current_gun_index][3]:
+			$Timer.wait_time = guns[current_gun_index][4]
+			print("start time")
+			$Timer.start()
 		var bullet = bullet_scene.instantiate()
-		bullet.global_position = marker_2d.global_position
-		bullet.direction = (get_global_mouse_position() - position).normalized()
-		bullet.look_at(get_global_mouse_position())
-		add_sibling(bullet)		
+		bullet.variance = guns[current_gun_index][5]
+		bullet.speed = guns[current_gun_index][6]
+		bullet.global_transform = marker_2d.global_transform
+		#bullet.direction = (get_global_mouse_position() - position).normalized()
+		#bullet.look_at(get_global_mouse_position())
+		add_sibling(bullet)
 	
+	if Input.is_action_just_released("shoot") and not can_shoot:
+		can_shoot = true
+		
 func _input(event):
 	if event is InputEventKey and event.is_pressed():
+		if event.keycode not in [KEY_0,KEY_1,KEY_2,KEY_3,KEY_4,KEY_5,KEY_6,KEY_7,KEY_8,KEY_9]:
+			return
 		var gun_select = null
 		match(event.keycode):
 			KEY_1:
@@ -112,5 +125,10 @@ func _input(event):
 				gun_select = 9
 			_:
 				pass
+		current_gun_index = gun_select
 		if gun_select in unlocked_guns:
 			equip_gun(gun_select)
+
+
+func _on_timer_timeout() -> void:
+	can_shoot = true
