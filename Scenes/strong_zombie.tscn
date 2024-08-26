@@ -1,21 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://cftu444a6qg4r"]
+[gd_scene load_steps=4 format=3 uid="uid://d0vc8ucfg2ba0"]
 
-[ext_resource type="Script" path="res://Code/zombie.gd" id="1_bwaej"]
-[ext_resource type="Texture2D" uid="uid://ctqvyi55yjy51" path="res://Assets/StrongZombie.png" id="2_gbp7v"]
+[ext_resource type="Script" path="res://Code/zombie.gd" id="1_gp81l"]
+[ext_resource type="Texture2D" uid="uid://ctqvyi55yjy51" path="res://Assets/StrongZombie.png" id="2_b4dbf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_klngt"]
 radius = 17.1172
 
 [node name="Strong Zombie" type="CharacterBody2D" groups=["enemy"]]
 scale = Vector2(2, 2)
-script = ExtResource("1_bwaej")
+script = ExtResource("1_gp81l")
 speed = 75.0
 direction_smoothing = 0.03
+health = 50.0
 
 [node name="StrongZombie" type="Sprite2D" parent="."]
 position = Vector2(6, -2.38419e-07)
 scale = Vector2(0.0555617, 0.0552084)
-texture = ExtResource("2_gbp7v")
+texture = ExtResource("2_b4dbf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_klngt")

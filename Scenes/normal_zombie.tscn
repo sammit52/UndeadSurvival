@@ -9,6 +9,8 @@
 scale = Vector2(2, 2)
 script = ExtResource("1_kfor4")
 speed = 125.0
+direction_smoothing = 0.05
+health = 20.0
 
 [node name="NormalZombie" type="Sprite2D" parent="."]
 position = Vector2(4, 0)

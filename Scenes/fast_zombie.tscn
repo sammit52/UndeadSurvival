@@ -11,6 +11,7 @@ scale = Vector2(2, 2)
 script = ExtResource("1_k5aw6")
 speed = 175.0
 direction_smoothing = 0.1
+health = 10.0
 
 [node name="FastZombie" type="Sprite2D" parent="."]
 position = Vector2(3, 5.96046e-08)
