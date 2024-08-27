@@ -84,11 +84,11 @@ func _process(delta: float) -> void:
 		can_shoot = false
 		if guns[current_gun_index][3]:
 			$Timer.wait_time = guns[current_gun_index][4]
-			print("start time")
 			$Timer.start()
 		var bullet = bullet_scene.instantiate()
 		bullet.variance = guns[current_gun_index][5]
 		bullet.speed = guns[current_gun_index][6]
+		bullet.bullet_damage = guns[current_gun_index][1]
 		bullet.global_transform = marker_2d.global_transform
 		#bullet.direction = (get_global_mouse_position() - position).normalized()
 		#bullet.look_at(get_global_mouse_position())

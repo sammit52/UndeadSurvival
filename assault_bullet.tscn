@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q171h"]
 size = Vector2(4, 2)
 
-[node name="Area2D" type="Area2D"]
+[node name="Area2D" type="Area2D" groups=["Bullet"]]
 script = ExtResource("1_g76vb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -16,3 +16,5 @@ shape = SubResource("RectangleShape2D_q171h")
 position = Vector2(9.29167, -0.375)
 scale = Vector2(0.5625, 0.5625)
 texture = ExtResource("1_o2yln")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

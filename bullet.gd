@@ -2,7 +2,7 @@ extends Area2D
 var variance : float
 var speed : float 
 @export var direction : Vector2 = Vector2.ZERO
-
+var bullet_damage : float
 func _ready():
 	rotation_degrees+=randf_range(-variance,variance)
 	
@@ -12,6 +12,9 @@ func _process(delta):
 	if position.x < 0 or position.x > get_viewport().size.x or position.y < 0 or position.y > get_viewport().size.y:
 		queue_free()
 
+
+
 func _on_body_entered(body: Node):
-	# Handle collision with enemies or walls
+	if body.has_method("take_damage"):
+		body.take_damage(bullet_damage)# Handle collision with enemies or walls
 	queue_free()

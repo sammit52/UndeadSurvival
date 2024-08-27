@@ -9,9 +9,9 @@ radius = 17.1172
 [node name="Strong Zombie" type="CharacterBody2D" groups=["enemy"]]
 scale = Vector2(2, 2)
 script = ExtResource("1_gp81l")
+health = 100.0
 speed = 75.0
-direction_smoothing = 0.03
-health = 50.0
+direction_smoothing = 0.001
 
 [node name="StrongZombie" type="Sprite2D" parent="."]
 position = Vector2(6, -2.38419e-07)
