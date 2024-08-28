@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6wbne673b7si"]
+
+[ext_resource type="PackedScene" uid="uid://dbhnj6xsyabo7" path="res://Scenes/player.tscn" id="1_y0wo7"]
+[ext_resource type="PackedScene" uid="uid://d2iceab2dvuph" path="res://Scenes/normal_zombie.tscn" id="2_0txbr"]
+[ext_resource type="PackedScene" uid="uid://bhxnh6fth4dlo" path="res://Scenes/fast_zombie.tscn" id="3_8awxl"]
+[ext_resource type="PackedScene" uid="uid://cftu444a6qg4r" path="res://Scenes/big_zombie.tscn" id="4_spjft"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Normal Zombie" parent="." instance=ExtResource("2_0txbr")]
+position = Vector2(833, 308)
+
+[node name="Fast Zombie" parent="." instance=ExtResource("3_8awxl")]
+position = Vector2(804, 389)
+direction_smoothing = 0.855
+
+[node name="Strong Zombie" parent="." instance=ExtResource("4_spjft")]
+position = Vector2(905, 367)
+direction_smoothing = 0.245
+
+[node name="Player" parent="." instance=ExtResource("1_y0wo7")]
+position = Vector2(67, 100)

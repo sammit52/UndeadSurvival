@@ -7,7 +7,7 @@ var guns = {0:["Pistol",5,99,false,0.0,0,400],1:["Gun1",2,50,true,0.075,7.5,225]
 #name, damage, max ammo, automatic?, time, 
 #var gun_names = ["Pistol", "Gun1", "Gun2", "Gun3", "Gun4", "Gun5", "Gun6", "Gun7", "Gun8", "Gun9"] # List of gun animation names
 
-var unlocked_guns = [0,1,2,3]
+var unlocked_guns = [0,1,2,3,4]
 var can_shoot = true
 var current_gun_index = 0
 
