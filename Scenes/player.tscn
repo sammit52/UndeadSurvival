@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://dbhnj6xsyabo7"]
+[gd_scene load_steps=17 format=3 uid="uid://dbhnj6xsyabo7"]
 
 [ext_resource type="Script" path="res://Code/player.gd" id="1_87p3u"]
+[ext_resource type="PackedScene" uid="uid://cxsll41ylibpk" path="res://Scenes/shotgun_bullet.tscn" id="2_4u2ld"]
 [ext_resource type="PackedScene" uid="uid://d33yd7m8n5786" path="res://Scenes/assault_bullet.tscn" id="2_cntqh"]
 [ext_resource type="Texture2D" uid="uid://cl0ef6yt3e0tf" path="res://Assets/Player.png" id="2_loxbk"]
 [ext_resource type="Texture2D" uid="uid://dgo5djbi8nig1" path="res://Assets/Guns/gun1.png" id="3_3qgog"]
@@ -104,7 +105,8 @@ animations = [{
 z_index = 1
 scale = Vector2(2, 2)
 script = ExtResource("1_87p3u")
-bullet_scene = ExtResource("2_cntqh")
+assault_bullet_scene = ExtResource("2_cntqh")
+shotgun_bullet_scene = ExtResource("2_4u2ld")
 
 [node name="Player" type="Sprite2D" parent="."]
 position = Vector2(4, 5.96046e-08)
@@ -112,6 +114,7 @@ scale = Vector2(0.045967, 0.045967)
 texture = ExtResource("2_loxbk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
 shape = SubResource("CircleShape2D_hyf28")
 
 [node name="Guns" type="AnimatedSprite2D" parent="."]
