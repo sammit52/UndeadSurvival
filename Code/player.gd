@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var assault_bullet_scene : PackedScene
 @export var shotgun_bullet_scene : PackedScene
 @onready var marker_2d: Marker2D = $Marker2D
-var guns = {0:["Pistol",5,99,false,0.0,0,400],1:["Gun1",2,50,true,0.075,7.5,225],2:["Gun2",2,50,true,0.2,1.5,400],3:["Gun3",2,50,true,0.2,2,400],4:["Gun4",2,50,true,0.2,1,400],5:["Gun5",2,50,true,0.2,1,400],6:["Gun6",2,50,true,0.2,1,400],7:["Gun7",2,50,true,0.2,1,400],8:["Gun8",2,50,true,0.2,1,400],9:["Gun9",2,50,true,0.2,1,400]}
+var guns = {0:["Pistol",5,99,false,0.0,0,400],1:["Gun1",2,50,true,0.075,7.5,225],2:["Gun2",2,50,true,0.2,1.5,400],3:["Gun3",2,50,true,0.2,2,400],4:["Gun4",2,50,true,1,15,250],5:["Gun5",2,50,true,0.2,1,400],6:["Gun6",2,50,true,0.2,1,400],7:["Gun7",2,50,true,0.2,1,400],8:["Gun8",2,50,true,0.2,1,400],9:["Gun9",2,50,true,0.2,1,400]}
 #name, damage, max ammo, automatic?, time, 
 #var gun_names = ["Pistol", "Gun1", "Gun2", "Gun3", "Gun4", "Gun5", "Gun6", "Gun7", "Gun8", "Gun9"] # List of gun animation names
 var unlocked_gun_index = 0
@@ -103,20 +103,32 @@ func _process(delta: float) -> void:
 		#checking if shotgun or not, probably a better way to do this.
 		if current_gun_index not in [4 , 7]:
 			bullet = assault_bullet_scene.instantiate()
+			bullet.variance = guns[current_gun_index][5]
+			bullet.speed = guns[current_gun_index][6]
+			bullet.bullet_damage = guns[current_gun_index][1]
+			bullet.global_transform = marker_2d.global_transform
+			add_sibling(bullet)
 		else:
-			bullet = shotgun_bullet_scene.instantiate()
-		bullet.variance = guns[current_gun_index][5]
-		bullet.speed = guns[current_gun_index][6]
-		bullet.bullet_damage = guns[current_gun_index][1]
-		bullet.global_transform = marker_2d.global_transform
+			for i in range(5):
+				bullet = shotgun_bullet_scene.instantiate()
+				bullet.variance = guns[current_gun_index][5]
+				bullet.speed = guns[current_gun_index][6]
+				bullet.bullet_damage = guns[current_gun_index][1]
+				bullet.global_transform = marker_2d.global_transform
+				add_sibling(bullet)
 		#Changed this code for the stuff above
 		#bullet.direction = (get_global_mouse_position() - position).normalized()
 		#bullet.look_at(get_global_mouse_position())
-		add_sibling(bullet)
+		
 	
 	if Input.is_action_just_released("shoot") and not can_shoot:
-		can_shoot = true
-		
+		if current_gun_index not in [4 , 7]:
+			can_shoot = true
+		else:
+			if $Timer.is_stopped():
+				$Timer.wait_time = guns[current_gun_index][4]
+				$Timer.start()
+			
 func _input(event):
 	# Changing weapons using number keys
 	if event is InputEventKey and event.is_pressed():
