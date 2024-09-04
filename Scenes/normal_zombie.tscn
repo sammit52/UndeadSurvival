@@ -5,12 +5,12 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_emf0o"]
 
-[node name="Normal Zombie" type="CharacterBody2D" groups=["enemy"]]
+[node name="Normal Zombie" type="Area2D" groups=["zombie"]]
 scale = Vector2(2, 2)
 script = ExtResource("1_kfor4")
 health = 50.0
-speed = 125.0
-direction_smoothing = 0.05
+speed = 100.0
+separation_distance = 50.0
 
 [node name="NormalZombie" type="Sprite2D" parent="."]
 position = Vector2(4, 0)

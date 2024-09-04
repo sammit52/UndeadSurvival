@@ -4,19 +4,21 @@
 [ext_resource type="Texture2D" uid="uid://ctqvyi55yjy51" path="res://Assets/StrongZombie.png" id="2_gbp7v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_klngt"]
-radius = 17.1172
+radius = 363.182
 
-[node name="Strong Zombie" type="CharacterBody2D" groups=["enemy"]]
-scale = Vector2(2, 2)
+[node name="Big Zombie" type="Area2D" groups=["zombie"]]
+scale = Vector2(0.1, 0.1)
 script = ExtResource("1_bwaej")
+health = 100.0
 speed = 75.0
-direction_smoothing = 0.03
+separation_distance = 100.0
 
 [node name="StrongZombie" type="Sprite2D" parent="."]
 position = Vector2(6, -2.38419e-07)
-scale = Vector2(0.0555617, 0.0552084)
+scale = Vector2(1.018, 1)
 texture = ExtResource("2_gbp7v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-112.5, 1.5)
 shape = SubResource("CircleShape2D_klngt")
 disabled = true

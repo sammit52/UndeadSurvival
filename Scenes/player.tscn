@@ -108,14 +108,14 @@ script = ExtResource("1_87p3u")
 assault_bullet_scene = ExtResource("2_cntqh")
 shotgun_bullet_scene = ExtResource("2_4u2ld")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("CircleShape2D_hyf28")
+
 [node name="Player" type="Sprite2D" parent="."]
 position = Vector2(4, 5.96046e-08)
 scale = Vector2(0.045967, 0.045967)
 texture = ExtResource("2_loxbk")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 0)
-shape = SubResource("CircleShape2D_hyf28")
 
 [node name="Guns" type="AnimatedSprite2D" parent="."]
 position = Vector2(28, -1)

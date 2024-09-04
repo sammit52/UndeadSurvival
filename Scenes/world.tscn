@@ -1,30 +1,49 @@
-[gd_scene load_steps=6 format=3 uid="uid://c6wbne673b7si"]
+[gd_scene load_steps=8 format=3 uid="uid://c6wbne673b7si"]
 
+[ext_resource type="Script" path="res://Code/world.gd" id="1_ehgwm"]
 [ext_resource type="PackedScene" uid="uid://dbhnj6xsyabo7" path="res://Scenes/player.tscn" id="1_y0wo7"]
 [ext_resource type="PackedScene" uid="uid://d2iceab2dvuph" path="res://Scenes/normal_zombie.tscn" id="2_0txbr"]
 [ext_resource type="PackedScene" uid="uid://bhxnh6fth4dlo" path="res://Scenes/fast_zombie.tscn" id="3_8awxl"]
 [ext_resource type="PackedScene" uid="uid://cftu444a6qg4r" path="res://Scenes/big_zombie.tscn" id="4_spjft"]
-[ext_resource type="Script" path="res://Scenes/node_2d.gd" id="5_ksktj"]
+[ext_resource type="Script" path="res://Code/zombie_spawner.gd" id="5_ksktj"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5tr6o"]
+normal = Vector2(0, 1)
+distance = 63.0
 
-[node name="Normal Zombie" parent="." instance=ExtResource("2_0txbr")]
-position = Vector2(833, 308)
+[node name="World" type="Node2D"]
+script = ExtResource("1_ehgwm")
 
-[node name="Fast Zombie" parent="." instance=ExtResource("3_8awxl")]
-position = Vector2(804, 389)
-direction_smoothing = 0.855
+[node name="World Barrier" type="StaticBody2D" parent="."]
 
-[node name="Strong Zombie" parent="." instance=ExtResource("4_spjft")]
-position = Vector2(925, 359)
-direction_smoothing = 0.245
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World Barrier"]
+position = Vector2(93, -23)
+shape = SubResource("WorldBoundaryShape2D_5tr6o")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World Barrier"]
+position = Vector2(-23, 95)
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_5tr6o")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="World Barrier"]
+position = Vector2(2022, 868)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_5tr6o")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="World Barrier"]
+position = Vector2(1717, 1051)
+rotation = -3.14159
+shape = SubResource("WorldBoundaryShape2D_5tr6o")
 
 [node name="Player" parent="." instance=ExtResource("1_y0wo7")]
-position = Vector2(67, 100)
+position = Vector2(90, 100)
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Zombie Spawner" type="Node2D" parent="."]
 script = ExtResource("5_ksktj")
+normal_zombie = ExtResource("2_0txbr")
+fast_zombie = ExtResource("3_8awxl")
+big_zombie = ExtResource("4_spjft")
 
-[node name="Timer" type="Timer" parent="Node2D"]
+[node name="Timer" type="Timer" parent="Zombie Spawner"]
 
-[connection signal="timeout" from="Node2D/Timer" to="Node2D" method="_on_timer_timeout"]
+[connection signal="timeout" from="Zombie Spawner/Timer" to="Zombie Spawner" method="_on_timer_timeout"]
