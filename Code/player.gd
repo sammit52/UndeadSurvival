@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var assault_bullet_scene : PackedScene
 @export var shotgun_bullet_scene : PackedScene
 @onready var marker_2d: Marker2D = $Marker2D
-var guns = {0:["Pistol",50,99,false,0.0,0,400],1:["Gun1",2,50,true,0.075,7.5,225],2:["Gun2",2,50,true,0.2,1.5,400],3:["Gun3",2,50,true,0.2,2,400],4:["Gun4",2,50,true,1,15,250],5:["Gun5",2,50,true,0.2,1,400],6:["Gun6",2,50,true,0.2,1,400],7:["Gun7",2,50,true,0.2,1,400],8:["Gun8",2,50,true,0.2,1,400],9:["Gun9",2,50,true,0.2,1,400]}
+var guns = {0:["Pistol",10,99,false,0.0,0,400],1:["Gun1",2,50,true,0.075,7.5,225],2:["Gun2",2,50,true,0.2,1.5,400],3:["Gun3",2,50,true,0.2,2,400],4:["Gun4",2,50,true,1,15,250],5:["Gun5",2,50,true,0.2,1,400],6:["Gun6",2,50,true,0.2,1,400],7:["Gun7",2,50,true,0.2,1,400],8:["Gun8",2,50,true,0.2,1,400],9:["Gun9",2,50,true,0.2,1,400]}
 #name, damage, max ammo, automatic?, time, variance, speed
 #var gun_names = ["Pistol", "Gun1", "Gun2", "Gun3", "Gun4", "Gun5", "Gun6", "Gun7", "Gun8", "Gun9"] # List of gun animation names
 var unlocked_gun_index = 0
@@ -23,14 +23,6 @@ func _ready():
 func equip_gun(index: int):
 	gun_sprite.animation = guns[index][0]
 	
-	
-	
-	
-	
-	
-	
-	
-
 
 func _process(delta: float) -> void:
 	var velocity: Vector2 = Vector2.ZERO

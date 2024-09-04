@@ -8,6 +8,7 @@ radius = 8.0
 
 [node name="Fast Zombie" type="Area2D" groups=["zombie"]]
 scale = Vector2(2, 2)
+collision_mask = 2
 script = ExtResource("1_k5aw6")
 health = 20.0
 speed = 150.0
@@ -20,4 +21,3 @@ texture = ExtResource("2_o77tx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_45q7o")
-disabled = true

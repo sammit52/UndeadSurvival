@@ -8,6 +8,7 @@ radius = 363.182
 
 [node name="Big Zombie" type="Area2D" groups=["zombie"]]
 scale = Vector2(0.1, 0.1)
+collision_mask = 2
 script = ExtResource("1_bwaej")
 health = 100.0
 speed = 75.0
@@ -21,4 +22,3 @@ texture = ExtResource("2_gbp7v")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-112.5, 1.5)
 shape = SubResource("CircleShape2D_klngt")
-disabled = true

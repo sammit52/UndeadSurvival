@@ -15,6 +15,7 @@ distance = 63.0
 script = ExtResource("1_ehgwm")
 
 [node name="World Barrier" type="StaticBody2D" parent="."]
+position = Vector2(-39, -41)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World Barrier"]
 position = Vector2(93, -23)
@@ -31,7 +32,7 @@ rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_5tr6o")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="World Barrier"]
-position = Vector2(1717, 1051)
+position = Vector2(1717, 1151)
 rotation = -3.14159
 shape = SubResource("WorldBoundaryShape2D_5tr6o")
 
@@ -39,6 +40,7 @@ shape = SubResource("WorldBoundaryShape2D_5tr6o")
 position = Vector2(90, 100)
 
 [node name="Zombie Spawner" type="Node2D" parent="."]
+position = Vector2(-21, -30)
 script = ExtResource("5_ksktj")
 normal_zombie = ExtResource("2_0txbr")
 fast_zombie = ExtResource("3_8awxl")

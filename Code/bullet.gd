@@ -13,12 +13,8 @@ func _process(delta):
 		queue_free()
 
 
-func _on_body_entered(body: Node):
-	if body.get_parent().has_method("take_damage"):
-		body.take_damage(bullet_damage)# Handle collision with enemies or walls
-	queue_free()
-
-func _on_area_entered(area: Area2D):
-	if area.get_parent().has_method("take_damage"):
+func _on_area_entered(area: Area2D) -> void:
+	if area.has_method("take_damage"):
 		area.take_damage(bullet_damage)# Handle collision with enemies or walls
-	queue_free()
+		queue_free()
+	

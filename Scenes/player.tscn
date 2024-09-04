@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://dbhnj6xsyabo7"]
+[gd_scene load_steps=20 format=3 uid="uid://dbhnj6xsyabo7"]
 
 [ext_resource type="Script" path="res://Code/player.gd" id="1_87p3u"]
-[ext_resource type="PackedScene" uid="uid://cxsll41ylibpk" path="res://Scenes/shotgun_bullet.tscn" id="2_4u2ld"]
 [ext_resource type="PackedScene" uid="uid://d33yd7m8n5786" path="res://Scenes/assault_bullet.tscn" id="2_cntqh"]
 [ext_resource type="Texture2D" uid="uid://cl0ef6yt3e0tf" path="res://Assets/Player.png" id="2_loxbk"]
 [ext_resource type="Texture2D" uid="uid://dgo5djbi8nig1" path="res://Assets/Guns/gun1.png" id="3_3qgog"]
+[ext_resource type="Script" path="res://Code/bullet.gd" id="3_4lta8"]
+[ext_resource type="Texture2D" uid="uid://f2n37dgm8sdg" path="res://Assets/Guns/ShotgunBullet.png" id="4_6xby0"]
 [ext_resource type="Texture2D" uid="uid://cc2ypdr7rxskt" path="res://Assets/Guns/gun2.png" id="4_it4jh"]
 [ext_resource type="Texture2D" uid="uid://whs26l7v85hq" path="res://Assets/Guns/gun3.png" id="5_bkqst"]
 [ext_resource type="Texture2D" uid="uid://ce1g3g0bvyjhm" path="res://Assets/Guns/gun4.png" id="6_0slp3"]
@@ -14,6 +15,22 @@
 [ext_resource type="Texture2D" uid="uid://io7t4gfsiuf7" path="res://Assets/Guns/gun8.png" id="10_wgle6"]
 [ext_resource type="Texture2D" uid="uid://7qrdkjduoyr3" path="res://Assets/Guns/gun9.png" id="11_7yqwu"]
 [ext_resource type="Texture2D" uid="uid://7skx7acnjgme" path="res://Assets/Guns/Pistol.png" id="12_qwgm0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q171h"]
+size = Vector2(2.94961, 1.9025)
+
+[sub_resource type="PackedScene" id="PackedScene_puot7"]
+_bundled = {
+"conn_count": 2,
+"conns": PackedInt32Array(0, 0, 9, 8, 2, 0, 0, 0, 0, 11, 10, 2, 0, 0),
+"editable_instances": [],
+"names": PackedStringArray("Area2D", "script", "Bullet", "CollisionShape2D", "position", "shape", "texture", "Sprite2D", "_on_area_entered", "area_entered", "_on_body_entered", "body_entered"),
+"node_count": 3,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 0, 0, -1, 1, 1, 0, 1, 2, 0, 0, 3, 3, -1, 2, 4, 1, 5, 2, 0, 0, 0, 7, 2, -1, 2, 4, 3, 6, 4, 0),
+"variants": [ExtResource("3_4lta8"), Vector2(-0.507077, 0.00234449), SubResource("RectangleShape2D_q171h"), Vector2(0.00892234, 0.00892186), ExtResource("4_6xby0")],
+"version": 3
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hyf28"]
 radius = 11.0
@@ -104,9 +121,10 @@ animations = [{
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["player"]]
 z_index = 1
 scale = Vector2(2, 2)
+collision_layer = 3
 script = ExtResource("1_87p3u")
 assault_bullet_scene = ExtResource("2_cntqh")
-shotgun_bullet_scene = ExtResource("2_4u2ld")
+shotgun_bullet_scene = SubResource("PackedScene_puot7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 0)

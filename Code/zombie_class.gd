@@ -49,6 +49,5 @@ func _process(delta: float) -> void:
 	
 func take_damage(damage):
 	health-= damage
-	queue_free()
 	if health <= 0:
 		queue_free()
