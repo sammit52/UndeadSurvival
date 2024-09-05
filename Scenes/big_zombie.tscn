@@ -14,11 +14,13 @@ health = 100.0
 speed = 75.0
 separation_distance = 100.0
 
-[node name="StrongZombie" type="Sprite2D" parent="."]
-position = Vector2(6, -2.38419e-07)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(116, 0)
 scale = Vector2(1.018, 1)
 texture = ExtResource("2_gbp7v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-112.5, 1.5)
+position = Vector2(-2.5, 1.5)
 shape = SubResource("CircleShape2D_klngt")
+
+[node name="Timer" type="Timer" parent="."]

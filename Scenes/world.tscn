@@ -32,7 +32,7 @@ rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_5tr6o")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="World Barrier"]
-position = Vector2(1717, 1151)
+position = Vector2(1717, 1180)
 rotation = -3.14159
 shape = SubResource("WorldBoundaryShape2D_5tr6o")
 
@@ -47,5 +47,7 @@ fast_zombie = ExtResource("3_8awxl")
 big_zombie = ExtResource("4_spjft")
 
 [node name="Timer" type="Timer" parent="Zombie Spawner"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [connection signal="timeout" from="Zombie Spawner/Timer" to="Zombie Spawner" method="_on_timer_timeout"]

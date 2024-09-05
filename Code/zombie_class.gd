@@ -11,9 +11,13 @@ var current_velocity : Vector2 = Vector2.ZERO
 @export var direction_smoothing : float = 0.1 # Smoothing factor (0 = no smoothing, 1 = instant)
 
 var target_offset : Vector2 = Vector2.ZERO
+var sprite = null
+var timer = null
 
 func _ready() -> void:
 	var players = get_tree().get_nodes_in_group("player")
+	sprite = $Sprite2D
+	timer = $Timer
 	if players.size() > 0:
 		player = players[0]  # Assuming there's only one player in the group
 	# slightly randomising each zombie
@@ -21,6 +25,7 @@ func _ready() -> void:
 	health += randf_range(-health/10,health/10)
 	speed += randf_range(-speed/10,speed/10)
 	direction_smoothing += randf_range(-direction_smoothing/10,direction_smoothing/10)
+
 	
 func apply_separation(zombies):
 	var separation_force = Vector2.ZERO
@@ -48,6 +53,18 @@ func _process(delta: float) -> void:
 			rotation = current_velocity.angle()
 	
 func take_damage(damage):
+	
+	reduce_opacity()
 	health-= damage
 	if health <= 0:
 		queue_free()
+
+func reduce_opacity() -> void:
+	if sprite:
+		sprite.modulate.a = 0.8  # Set opacity to 50%
+		
+		$Timer.start(0.05) 
+		
+		await $Timer.timeout
+		
+		sprite.modulate.a = 1.0  # Restore full opacity
