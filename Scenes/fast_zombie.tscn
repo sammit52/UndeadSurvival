@@ -11,7 +11,7 @@ collision_mask = 2
 script = ExtResource("1_k5aw6")
 health = 20.0
 speed = 150.0
-separation_distance = 35.0
+separation_distance = 50.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(3, 5.96046e-08)
@@ -22,4 +22,4 @@ texture = ExtResource("2_o77tx")
 position = Vector2(-0.5, 0)
 shape = SubResource("CircleShape2D_45q7o")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Damage_Timer" type="Timer" parent="."]

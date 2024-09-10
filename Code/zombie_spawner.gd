@@ -3,18 +3,25 @@ extends Node2D
 @export var normal_zombie : PackedScene
 @export var fast_zombie : PackedScene
 @export var big_zombie : PackedScene
+@export var boss_zombie : PackedScene
 var can_spawn_zombie = true
-
-@onready var zombie_timer = $Timer
-
+var can_spawn_boss_zombie = true
+@onready var zombie_timer = $Zombie_Timer
+@onready var boss_zombie_timer = $Boss_Zombie_Timer
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if can_spawn_zombie:
 		can_spawn_zombie = false
-		zombie_timer.wait_time = 5
+		zombie_timer.wait_time = 2
 		zombie_timer.start()
 		spawn_zombie()
-
+	
+	if can_spawn_boss_zombie:
+		can_spawn_boss_zombie = false
+		boss_zombie_timer.wait_time = 60
+		boss_zombie_timer.start()
+		spawn_boss_zombie()
+	
 func spawn_zombie():
 	var i = randi_range(1,10)
 	var zombie = null
@@ -26,6 +33,15 @@ func spawn_zombie():
 		zombie = big_zombie.instantiate()
 	zombie.position = Vector2(1950, randf_range(0,1090))
 	add_child(zombie)
-
-func _on_timer_timeout() -> void:
+	
+func spawn_boss_zombie():
+	var zombie 
+	zombie = boss_zombie.instantiate()
+	zombie.position = Vector2(1950, randf_range(0,1090))
+	add_child(zombie)
+	
+func _on_zombie_timer_timeout() -> void:
 	can_spawn_zombie = true
+
+func _on_boss_zombie_timer_timeout() -> void:
+	can_spawn_boss_zombie = true

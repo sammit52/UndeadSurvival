@@ -17,7 +17,7 @@ var timer = null
 func _ready() -> void:
 	var players = get_tree().get_nodes_in_group("player")
 	sprite = $Sprite2D
-	timer = $Timer
+	timer = $Damage_Timer
 	if players.size() > 0:
 		player = players[0]  # Assuming there's only one player in the group
 	# slightly randomising each zombie
@@ -26,7 +26,8 @@ func _ready() -> void:
 	speed += randf_range(-speed/10,speed/10)
 	direction_smoothing += randf_range(-direction_smoothing/10,direction_smoothing/10)
 
-	
+
+# Distances zombies so they don't overlap and appear more natural
 func apply_separation(zombies):
 	var separation_force = Vector2.ZERO
 	for other_zombie in zombies:
@@ -37,6 +38,7 @@ func apply_separation(zombies):
 	return separation_force * 30.0  # Separation strength
 
 func _process(delta: float) -> void:
+	
 	if player:
 		var target_direction = (player.global_position + target_offset - global_position).normalized()
 		current_velocity = current_velocity.lerp(target_direction * speed, direction_smoothing)
@@ -63,8 +65,8 @@ func reduce_opacity() -> void:
 	if sprite:
 		sprite.modulate.a = 0.8  # Set opacity to 50%
 		
-		$Timer.start(0.05) 
+		$Damage_Timer.start(0.05) 
 		
-		await $Timer.timeout
+		await $Damage_Timer.timeout
 		
 		sprite.modulate.a = 1.0  # Restore full opacity

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c6wbne673b7si"]
+[gd_scene load_steps=9 format=3 uid="uid://c6wbne673b7si"]
 
 [ext_resource type="Script" path="res://Code/world.gd" id="1_ehgwm"]
 [ext_resource type="PackedScene" uid="uid://dbhnj6xsyabo7" path="res://Scenes/player.tscn" id="1_y0wo7"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bhxnh6fth4dlo" path="res://Scenes/fast_zombie.tscn" id="3_8awxl"]
 [ext_resource type="PackedScene" uid="uid://cftu444a6qg4r" path="res://Scenes/big_zombie.tscn" id="4_spjft"]
 [ext_resource type="Script" path="res://Code/zombie_spawner.gd" id="5_ksktj"]
+[ext_resource type="PackedScene" uid="uid://d4hq3i4bka86b" path="res://Scenes/boss_zombie.tscn" id="7_ylor6"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5tr6o"]
 normal = Vector2(0, 1)
@@ -45,9 +46,13 @@ script = ExtResource("5_ksktj")
 normal_zombie = ExtResource("2_0txbr")
 fast_zombie = ExtResource("3_8awxl")
 big_zombie = ExtResource("4_spjft")
+boss_zombie = ExtResource("7_ylor6")
 
-[node name="Timer" type="Timer" parent="Zombie Spawner"]
+[node name="Zombie_Timer" type="Timer" parent="Zombie Spawner"]
+
+[node name="Boss_Zombie_Timer" type="Timer" parent="Zombie Spawner"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[connection signal="timeout" from="Zombie Spawner/Timer" to="Zombie Spawner" method="_on_timer_timeout"]
+[connection signal="timeout" from="Zombie Spawner/Zombie_Timer" to="Zombie Spawner" method="_on_zombie_timer_timeout"]
+[connection signal="timeout" from="Zombie Spawner/Boss_Zombie_Timer" to="Zombie Spawner" method="_on_boss_zombie_timer_timeout"]
