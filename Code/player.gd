@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var speed: float = 200.0  # Movement speed in pixels per second
+@export var health = 100
 @export var assault_bullet_scene : PackedScene
 @export var shotgun_bullet_scene : PackedScene
 @onready var marker_2d: Marker2D = $Marker2D

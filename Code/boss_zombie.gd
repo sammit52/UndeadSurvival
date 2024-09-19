@@ -56,7 +56,7 @@ func _process(delta: float) -> void:
 func apply_separation(zombies):
 	var separation_force = Vector2.ZERO
 	for other_zombie in zombies:
-		if other_zombie != self:
+		if other_zombie != self and not other_zombie.is_in_group("baby_zombie"):
 			var distance = global_position.distance_to(other_zombie.global_position)
 			if distance < separation_distance:  # Separation threshold
 				separation_force += (global_position - other_zombie.global_position).normalized() / distance

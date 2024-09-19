@@ -12,6 +12,7 @@ collision_mask = 2
 script = ExtResource("1_cfq14")
 health = 400.0
 speed = 75.0
+separation_distance = 500.0
 direction_smoothing = 0.05
 baby_zombie = ExtResource("2_k61j4")
 

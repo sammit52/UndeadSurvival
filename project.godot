@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Bullet=""
 zombie=""
+baby_zombie=""
 
 [input]
 
