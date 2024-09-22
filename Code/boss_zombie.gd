@@ -47,7 +47,8 @@ func _process(delta: float) -> void:
 		
 		velocity = current_velocity
 		
-		position += velocity * delta
+		global_position += velocity * delta
+		#ALERT Changed this from position to global_position
 		
 		# Update rotation only if there is movement
 		if velocity.length() > 0:
@@ -80,9 +81,9 @@ func reduce_opacity() -> void:
 
 func spawn_baby_zombie():
 	var zombie = baby_zombie.instantiate()
-	zombie.global_position = position 
 	print(position)
-	get_tree().root.add_child(zombie)
+	add_sibling(zombie)
+	zombie.global_position = global_position
 	print("Baby zombie spawned")
 
 func _on_baby_zombie_timer_timeout() -> void:

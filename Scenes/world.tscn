@@ -41,7 +41,6 @@ shape = SubResource("WorldBoundaryShape2D_5tr6o")
 position = Vector2(90, 100)
 
 [node name="Zombie Spawner" type="Node2D" parent="."]
-position = Vector2(-21, -30)
 script = ExtResource("5_ksktj")
 normal_zombie = ExtResource("2_0txbr")
 fast_zombie = ExtResource("3_8awxl")

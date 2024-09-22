@@ -25,6 +25,7 @@ func _ready() -> void:
 	health += randf_range(-health/10,health/10)
 	speed += randf_range(-speed/10,speed/10)
 	direction_smoothing += randf_range(-direction_smoothing/10,direction_smoothing/10)
+	print(players)
 
 
 # Distances zombies so they don't overlap and appear more natural
