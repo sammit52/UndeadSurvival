@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cc2ypdr7rxskt"
-path="res://.godot/imported/gun2.png-e243435b8d88410c6ce35fae723397e6.ctex"
+uid="uid://bnigfphtc2pox"
+path="res://.godot/imported/Drum Gun.png-e5eca810dbfee9727cb920e6f379f9c7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Guns/gun2.png"
-dest_files=["res://.godot/imported/gun2.png-e243435b8d88410c6ce35fae723397e6.ctex"]
+source_file="res://Assets/Guns/Drum Gun.png"
+dest_files=["res://.godot/imported/Drum Gun.png-e5eca810dbfee9727cb920e6f379f9c7.ctex"]
 
 [params]
 

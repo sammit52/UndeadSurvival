@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://deq4vfffvwvrs"
-path="res://.godot/imported/gun6.png-68e2ccad5e9c8290c9e63b391c3aced7.ctex"
+uid="uid://cc2ypdr7rxskt"
+path="res://.godot/imported/Scar.png-f1d97a40704a38d04e2ddf682b676a0f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Guns/gun6.png"
-dest_files=["res://.godot/imported/gun6.png-68e2ccad5e9c8290c9e63b391c3aced7.ctex"]
+source_file="res://Assets/Guns/Scar.png"
+dest_files=["res://.godot/imported/Scar.png-f1d97a40704a38d04e2ddf682b676a0f.ctex"]
 
 [params]
 

@@ -3,17 +3,17 @@
 [ext_resource type="Script" path="res://Code/player.gd" id="1_87p3u"]
 [ext_resource type="PackedScene" uid="uid://d33yd7m8n5786" path="res://Scenes/assault_bullet.tscn" id="2_cntqh"]
 [ext_resource type="Texture2D" uid="uid://cl0ef6yt3e0tf" path="res://Assets/Player.png" id="2_loxbk"]
-[ext_resource type="Texture2D" uid="uid://dgo5djbi8nig1" path="res://Assets/Guns/gun1.png" id="3_3qgog"]
+[ext_resource type="Texture2D" uid="uid://dgo5djbi8nig1" path="res://Assets/Guns/Uzi.png" id="3_3qgog"]
 [ext_resource type="Script" path="res://Code/bullet.gd" id="3_4lta8"]
 [ext_resource type="Texture2D" uid="uid://f2n37dgm8sdg" path="res://Assets/Guns/ShotgunBullet.png" id="4_6xby0"]
-[ext_resource type="Texture2D" uid="uid://cc2ypdr7rxskt" path="res://Assets/Guns/gun2.png" id="4_it4jh"]
-[ext_resource type="Texture2D" uid="uid://whs26l7v85hq" path="res://Assets/Guns/gun3.png" id="5_bkqst"]
-[ext_resource type="Texture2D" uid="uid://ce1g3g0bvyjhm" path="res://Assets/Guns/gun4.png" id="6_0slp3"]
-[ext_resource type="Texture2D" uid="uid://bnigfphtc2pox" path="res://Assets/Guns/gun5.png" id="7_s3c7x"]
-[ext_resource type="Texture2D" uid="uid://deq4vfffvwvrs" path="res://Assets/Guns/gun6.png" id="8_2wiar"]
-[ext_resource type="Texture2D" uid="uid://ci24538ix2slo" path="res://Assets/Guns/gun7.png" id="9_tnikf"]
-[ext_resource type="Texture2D" uid="uid://io7t4gfsiuf7" path="res://Assets/Guns/gun8.png" id="10_wgle6"]
-[ext_resource type="Texture2D" uid="uid://7qrdkjduoyr3" path="res://Assets/Guns/gun9.png" id="11_7yqwu"]
+[ext_resource type="Texture2D" uid="uid://cc2ypdr7rxskt" path="res://Assets/Guns/Scar.png" id="4_it4jh"]
+[ext_resource type="Texture2D" uid="uid://whs26l7v85hq" path="res://Assets/Guns/M16.png" id="5_bkqst"]
+[ext_resource type="Texture2D" uid="uid://ce1g3g0bvyjhm" path="res://Assets/Guns/Shotgun.png" id="6_0slp3"]
+[ext_resource type="Texture2D" uid="uid://bnigfphtc2pox" path="res://Assets/Guns/Drum Gun.png" id="7_s3c7x"]
+[ext_resource type="Texture2D" uid="uid://deq4vfffvwvrs" path="res://Assets/Guns/MG42.png" id="8_2wiar"]
+[ext_resource type="Texture2D" uid="uid://ci24538ix2slo" path="res://Assets/Guns/Mechanical Shotgun.png" id="9_tnikf"]
+[ext_resource type="Texture2D" uid="uid://io7t4gfsiuf7" path="res://Assets/Guns/AK47.png" id="10_wgle6"]
+[ext_resource type="Texture2D" uid="uid://dsti47qme6c0l" path="res://Assets/Guns/Sniper.png" id="11_7yqwu"]
 [ext_resource type="Texture2D" uid="uid://7skx7acnjgme" path="res://Assets/Guns/Pistol.png" id="12_qwgm0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q171h"]
@@ -39,34 +39,10 @@ radius = 11.0
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_3qgog")
+"texture": ExtResource("10_wgle6")
 }],
 "loop": true,
-"name": &"Gun1",
-"speed": 0.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_it4jh")
-}],
-"loop": true,
-"name": &"Gun2",
-"speed": 0.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_bkqst")
-}],
-"loop": true,
-"name": &"Gun3",
-"speed": 0.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("6_0slp3")
-}],
-"loop": true,
-"name": &"Gun4",
+"name": &"AK47",
 "speed": 0.0
 }, {
 "frames": [{
@@ -74,7 +50,15 @@ animations = [{
 "texture": ExtResource("7_s3c7x")
 }],
 "loop": true,
-"name": &"Gun5",
+"name": &"Drum Gun",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_bkqst")
+}],
+"loop": true,
+"name": &"M16",
 "speed": 0.0
 }, {
 "frames": [{
@@ -82,7 +66,7 @@ animations = [{
 "texture": ExtResource("8_2wiar")
 }],
 "loop": true,
-"name": &"Gun6",
+"name": &"MG42",
 "speed": 0.0
 }, {
 "frames": [{
@@ -90,23 +74,7 @@ animations = [{
 "texture": ExtResource("9_tnikf")
 }],
 "loop": true,
-"name": &"Gun7",
-"speed": 0.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("10_wgle6")
-}],
-"loop": true,
-"name": &"Gun8",
-"speed": 0.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("11_7yqwu")
-}],
-"loop": true,
-"name": &"Gun9",
+"name": &"Mechanical Shotgun",
 "speed": 0.0
 }, {
 "frames": [{
@@ -116,6 +84,38 @@ animations = [{
 "loop": true,
 "name": &"Pistol",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_it4jh")
+}],
+"loop": true,
+"name": &"Scar",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_0slp3")
+}],
+"loop": true,
+"name": &"Shotgun",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_7yqwu")
+}],
+"loop": true,
+"name": &"Sniper",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_3qgog")
+}],
+"loop": true,
+"name": &"Uzi",
+"speed": 0.0
 }]
 
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["player"]]
@@ -139,7 +139,7 @@ texture = ExtResource("2_loxbk")
 position = Vector2(28, -1)
 scale = Vector2(0.666667, 0.666667)
 sprite_frames = SubResource("SpriteFrames_toijm")
-animation = &"Gun4"
+animation = &"MG42"
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(28, -1)

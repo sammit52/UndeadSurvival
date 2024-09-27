@@ -8,3 +8,9 @@ class_name Gun extends Resource
 @export var bullet_time : float = 1
 @export var mag_size : int = 6
 @export var bullets_in_mag : int = 6
+@export var reload_time : int = 1
+
+func reload():
+	bullets_in_mag = mag_size
+	
+	
