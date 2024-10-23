@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d4hq3i4bka86b"]
 
 [ext_resource type="Script" path="res://Code/boss_zombie.gd" id="1_cfq14"]
-[ext_resource type="Texture2D" uid="uid://sfb86q7fik3t" path="res://Assets/BossZombie.png" id="2_6tefc"]
+[ext_resource type="Texture2D" uid="uid://sfb86q7fik3t" path="res://Assets/Zombies/BossZombie.png" id="2_6tefc"]
 [ext_resource type="PackedScene" uid="uid://d2aaue8gfn114" path="res://Scenes/baby_zombie.tscn" id="2_k61j4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_emf0o"]
@@ -12,7 +12,7 @@ collision_mask = 2
 script = ExtResource("1_cfq14")
 health = 400.0
 speed = 75.0
-separation_distance = 500.0
+separation_distance = 200.0
 direction_smoothing = 0.05
 baby_zombie = ExtResource("2_k61j4")
 

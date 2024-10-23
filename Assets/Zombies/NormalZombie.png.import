@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfjrei0ix0hbf"
-path="res://.godot/imported/BabyZombie.png-6d94896676d72f50984bcaf95b11eeee.ctex"
+uid="uid://ci8ptklyjyafa"
+path="res://.godot/imported/NormalZombie.png-d0bf907d48d1d05a61fdb14f5a5f2d59.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/BabyZombie.png"
-dest_files=["res://.godot/imported/BabyZombie.png-6d94896676d72f50984bcaf95b11eeee.ctex"]
+source_file="res://Assets/Zombies/NormalZombie.png"
+dest_files=["res://.godot/imported/NormalZombie.png-d0bf907d48d1d05a61fdb14f5a5f2d59.ctex"]
 
 [params]
 

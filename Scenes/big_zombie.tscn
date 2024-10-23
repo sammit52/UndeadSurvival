@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cftu444a6qg4r"]
 
 [ext_resource type="Script" path="res://Code/zombie.gd" id="1_bwaej"]
-[ext_resource type="Texture2D" uid="uid://ctqvyi55yjy51" path="res://Assets/StrongZombie.png" id="2_gbp7v"]
+[ext_resource type="Texture2D" uid="uid://ctqvyi55yjy51" path="res://Assets/Zombies/StrongZombie.png" id="2_gbp7v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_klngt"]
 radius = 363.182
