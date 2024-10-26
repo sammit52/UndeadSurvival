@@ -8,7 +8,7 @@ extends CharacterBody2D
 
 var guns = {0:["Pistol",10,99,false,0.0,0,400],1:["Uzi",2,50,true,0.075,7.5,225],2:["AK47",2,50,true,0.2,1.5,400],3:["Sniper",25,50,false,2.5,3,500],4:["Shotgun",2,50,false,0.5,7.5,200],5:["Gun5",2,50,true,0.2,1,400],6:["Gun6",2,50,true,0.2,1,400],7:["Gun7",2,50,true,0.2,1,400],8:["Gun8",2,50,true,0.2,1,400],9:["Gun9",2,50,true,0.2,1,400]}
 #name, damage, max ammo, automatic?, time, variance, speed
-#var gun_names = ["Pistol", "Gun1", "Gun2", "Gun3", "Gun4", "Gun5", "Gun6", "Gun7", "Gun8", "Gun9"] # List of gun animation names
+var gun_names = ["Pistol", "Gun1", "Gun2", "Gun3", "Gun4", "Gun5", "Gun6", "Gun7", "Gun8", "Gun9"] # List of gun animation names
 var unlocked_gun_index = 0
 var unlocked_guns = [0,1,2,3,4]
 var can_shoot = true
@@ -74,7 +74,7 @@ func _process(delta: float) -> void:
 		if unlocked_gun_index >= unlocked_guns.size():
 			unlocked_gun_index = 0
 		current_gun_index = unlocked_guns[unlocked_gun_index]
-		equip_gun(unlocked_guns[unlocked_guns[unlocked_gun_index]])
+		equip_gun(unlocked_guns[unlocked_gun_index])
 	
 	if Input.is_action_just_pressed("ui_scroll_down"):
 		unlocked_gun_index -= 1
@@ -82,7 +82,7 @@ func _process(delta: float) -> void:
 			unlocked_gun_index = unlocked_guns.size() - 1
 		current_gun_index = unlocked_guns[unlocked_gun_index]
 		
-		equip_gun(unlocked_guns[unlocked_guns[unlocked_gun_index]])
+		equip_gun(unlocked_guns[unlocked_gun_index])
 	
 	# Was using current gun index for two different things, the keypad to define what gun is equipped, and with this old code to scroll through the unlocked gun index and not what gun is equipped, unlocked gun index should be the gun thats equipped.
 	#if Input.is_action_just_pressed("ui_scroll_down"):
@@ -101,7 +101,7 @@ func _process(delta: float) -> void:
 			$Timer.wait_time = guns[current_gun_index][4]
 			$Timer.start()
 		var bullet
-		# checking if shotgun or not, probably a better way to do this.
+		#checking if shotgun or not, probably a better way to do this.
 		if current_gun_index not in [4 , 7]:
 			bullet = assault_bullet_scene.instantiate()
 			bullet.variance = guns[current_gun_index][5]
@@ -121,9 +121,9 @@ func _process(delta: float) -> void:
 		#bullet.direction = (get_global_mouse_position() - position).normalized()
 		#bullet.look_at(get_global_mouse_position())
 		
+	
 	if Input.is_action_just_released("shoot") and not can_shoot:
-		# Checking if the gun is automatic or not
-		if current_gun_index not in [3, 4 , 7]:
+		if current_gun_index not in [4 , 7]:
 			can_shoot = true
 		else:
 			if $Timer.is_stopped():
