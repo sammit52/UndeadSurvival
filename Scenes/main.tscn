@@ -1,9 +1,190 @@
-[gd_scene load_steps=5 format=3 uid="uid://biyyejk3jgomd"]
+[gd_scene load_steps=5 format=3 uid="uid://3txs7hk3c5r7"]
 
-[ext_resource type="Script" path="res://Code/menu_controller.gd" id="1_7x6vp"]
-[ext_resource type="Texture2D" uid="uid://c7ycnhy7dx87w" path="res://res/00000.png" id="1_lg33l"]
-[ext_resource type="LabelSettings" uid="uid://1oyxx8ys1m6d" path="res://Assets/font.res" id="2_yfgsl"]
-[ext_resource type="Script" path="res://Code/scroll_label.gd" id="3_v2ba3"]
+[sub_resource type="GDScript" id="GDScript_7q0pf"]
+script/source = "extends Control
+# Please check the documentation about
+# Displayserver class : https://docs.godotengine.org/en/stable/classes/class_displayserver.html
+
+#--
+# Check out Colorblind addon for godot : https://github.com/paulloz/godot-colorblindness
+#--
+
+# Config file
+# Move it into a singleton
+var settings_file = ConfigFile.new()
+#--
+var vsync: int = 0
+# I'm a Vector3 instead of 3 var float
+# - x : General , y : Music , z : SFX
+var audio: Vector3 = Vector3(70.0, 70.0, 70.0)
+var display_resolution : Vector2i = DisplayServer.screen_get_size()
+
+
+@onready var resolution_option_button = get_node(\"%Resolution_Optionbutton\")
+@onready var window_mode_option_button = get_node(\"%WindowMode_Optionbutton\")
+@onready var vsync_option_button = get_node(\"%Vsync_Optionbutton\")
+@onready var option_container = get_node(\"%OptionContainer\")
+@onready var main_container = get_node(\"%MainContainer\")
+
+
+
+
+func _get_resolution(index) -> Vector2i:
+	var resolution_arr = resolution_option_button.get_item_text(index).split(\"x\")
+	return Vector2i(int(resolution_arr[0]), int(resolution_arr[1]))
+
+
+func _check_resolution(resolution: Vector2i):
+	for i in resolution_option_button.get_item_count():
+		if _get_resolution(i) == resolution:
+			return i
+
+
+func _first_time() -> void:
+	DisplayServer.window_set_size(DisplayServer.screen_get_size())
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	DisplayServer.window_set_vsync_mode(vsync)
+	resolution_option_button.select(_check_resolution(DisplayServer.screen_get_size()))
+	window_mode_option_button.select(\"Fullscreen\")
+	vsync_option_button.select(\"off\")
+
+	# -- Video
+	settings_file.set_value(\"VIDEO\", \"Resolution\", _get_resolution(resolution_option_button.get_index()))
+	settings_file.set_value(\"VIDEO\", \"vsync\", vsync_option_button.get_index())
+	settings_file.set_value(\"VIDEO\", \"Window Mode\", window_mode_option_button.get_index())
+	settings_file.set_value(\"VIDEO\", \"Graphics\", _get_resolution(resolution_option_button.get_index()))
+	settings_file.set_value(\"VIDEO\", \"Color blind\", _get_resolution(resolution_option_button.get_index()))
+	# -- audio
+	settings_file.set_value(\"audio\", \"General\", audio.x)
+	settings_file.set_value(\"audio\", \"Music\", audio.y)
+	settings_file.set_value(\"audio\", \"SFX\", audio.z)
+
+	settings_file.save(\"res://settings.cfg\")
+
+
+func _load_settings():
+	if settings_file.load(\"res://settings.cfg\") != OK:
+		_first_time()
+	else:
+		display_resolution = settings_file.get_value(\"VIDEO\",\"Resolution\")
+		get_window().size = display_resolution
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		audio.x = settings_file.get_value(\"audio\", \"General\")
+		audio.y = settings_file.get_value(\"audio\", \"Music\")
+		audio.z =settings_file.get_value(\"audio\", \"SFX\")
+		%General_HScrollBar.value = audio.x 
+		%Music_HScrollBar.value = audio.y
+		%SFX_HScrollBar.value = audio.z
+
+
+
+func _save_settings() -> void:
+	# -- Video
+	settings_file.set_value(\"VIDEO\", \"Resolution\", _get_resolution(resolution_option_button.get_index()))
+	settings_file.set_value(\"VIDEO\", \"vsync\", vsync)
+	settings_file.set_value(\"VIDEO\", \"Window Mode\", _get_resolution(resolution_option_button.get_index()))
+	settings_file.set_value(\"VIDEO\", \"Graphics\", _get_resolution(resolution_option_button.get_index()))
+	settings_file.set_value(\"VIDEO\", \"Color blind\", _get_resolution(resolution_option_button.get_index()))
+	# -- audio
+	settings_file.set_value(\"audio\", \"General\", audio.x)
+	settings_file.set_value(\"audio\", \"Music\", audio.y)
+	settings_file.set_value(\"audio\", \"SFX\", audio.z)
+
+	settings_file.save(\"res://settings.cfg\")
+
+
+func _ready():
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	_load_settings()
+	resolution_option_button.select(_check_resolution(display_resolution))
+
+
+func _on_start_button_pressed():
+	get_tree().change_scene_to_file(\"res://Scenes/world.tscn\")
+	# Check the documentation https://docs.godotengine.org/en/stable/tutorials/scripting/change_scenes_manually.html
+	# Replace with function body.
+
+
+func _on_option_button_pressed():
+	option_container.visible = true
+	main_container.visible = false
+
+
+func _on_exit_button_pressed():
+	get_tree().quit()
+
+
+# -- VIDEO TAB --
+
+
+func _on_resolution_optionbutton_item_selected(index):
+	get_window().size = _get_resolution(index)
+
+
+func _on_window_mode_optionbutton_item_selected(_index):
+	if _index == 0:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	elif _index == 1:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
+
+
+func _on_preset_h_slider_value_changed(_value):
+	# start here https://docs.godotengine.org/en/stable/tutorials/3d/mesh_lod.html
+	pass  # Replace with function body.
+
+
+# -- audio TAB --
+
+
+func _on_general_h_scroll_bar_value_changed(value):
+	audio.x = value
+
+
+func _on_music_h_scroll_bar_value_changed(value):
+	audio.y = value
+
+
+func _on_sfx_h_scroll_bar_value_changed(value):
+	audio.z = value
+
+
+# -- Save and Exit buttons
+
+
+func _on_return_button_pressed():
+	main_container.visible = true
+	option_container.visible = false
+
+
+func _on_apply_button_pressed():
+	main_container.visible = true
+	option_container.visible = false
+	_save_settings()
+
+
+func _on_vsync_option_button_item_selected(index):
+	# check the documentation about vsync : https://docs.godotengine.org/en/stable/classes/class_displayserver.html#enum-displayserver-vsyncmode
+	vsync = index
+"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e8vhq"]
+load_path = "res://.godot/imported/00000.png-7baa699ce59db30a6f325383b261ed0f.ctex"
+
+[sub_resource type="LabelSettings" id="LabelSettings_d28f0"]
+font_size = 18
+
+[sub_resource type="GDScript" id="GDScript_a3kur"]
+script/source = "extends Label
+
+
+
+func _ready():
+	self.text= str(get_parent().value) + \"%\"
+
+func _on_h_scroll_bar_value_changed(value):
+	self.text = str(value) + \"%\"
+"
 
 [node name="main" type="Node"]
 
@@ -17,7 +198,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-script = ExtResource("1_7x6vp")
+script = SubResource("GDScript_7q0pf")
 
 [node name="Bg" type="TextureRect" parent="CanvasLayer/MainMenu"]
 layout_mode = 1
@@ -26,7 +207,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_lg33l")
+texture = SubResource("CompressedTexture2D_e8vhq")
 expand_mode = 1
 
 [node name="MainContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu"]
@@ -94,7 +275,7 @@ offset_top = 2.0
 offset_right = 95.0
 offset_bottom = 31.0
 text = "General"
-label_settings = ExtResource("2_yfgsl")
+label_settings = SubResource("LabelSettings_d28f0")
 
 [node name="Resolution_Label" type="Label" parent="CanvasLayer/MainMenu/OptionContainer/TabContainer/Video"]
 layout_mode = 0
@@ -146,6 +327,10 @@ offset_left = 298.0
 offset_top = 73.0
 offset_right = 474.0
 offset_bottom = 105.0
+item_count = 2
+popup/item_0/text = "Fullscreen"
+popup/item_1/text = "Windowed"
+popup/item_1/id = 1
 
 [node name="Vsync_Label" type="Label" parent="CanvasLayer/MainMenu/OptionContainer/TabContainer/Video"]
 layout_mode = 0
@@ -201,7 +386,7 @@ offset_top = 256.0
 offset_right = 103.0
 offset_bottom = 285.0
 text = "Graphics"
-label_settings = ExtResource("2_yfgsl")
+label_settings = SubResource("LabelSettings_d28f0")
 
 [node name="Preset_HSlider" type="HSlider" parent="CanvasLayer/MainMenu/OptionContainer/TabContainer/Video"]
 layout_mode = 0
@@ -251,7 +436,7 @@ offset_top = -5.0
 offset_right = 489.0
 offset_bottom = 21.0
 text = "70%"
-script = ExtResource("3_v2ba3")
+script = SubResource("GDScript_a3kur")
 
 [node name="Music_Label" type="Label" parent="CanvasLayer/MainMenu/OptionContainer/TabContainer/Sound"]
 layout_mode = 0
@@ -278,7 +463,7 @@ offset_top = -5.0
 offset_right = 489.0
 offset_bottom = 21.0
 text = "67%"
-script = ExtResource("3_v2ba3")
+script = SubResource("GDScript_a3kur")
 
 [node name="SFX_Label" type="Label" parent="CanvasLayer/MainMenu/OptionContainer/TabContainer/Sound"]
 layout_mode = 0
@@ -305,7 +490,7 @@ offset_top = -5.0
 offset_right = 489.0
 offset_bottom = 21.0
 text = "67%"
-script = ExtResource("3_v2ba3")
+script = SubResource("GDScript_a3kur")
 
 [node name="Container" type="HBoxContainer" parent="CanvasLayer/MainMenu/OptionContainer"]
 layout_mode = 2
