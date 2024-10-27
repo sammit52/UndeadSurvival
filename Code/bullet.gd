@@ -3,6 +3,7 @@ var variance : float
 var speed : float 
 @export var direction : Vector2 = Vector2.ZERO
 var bullet_damage : float
+var sniper : bool = false
 func _ready():
 	rotation_degrees+=randf_range(-variance,variance)
 	

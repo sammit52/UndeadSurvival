@@ -12,6 +12,7 @@ script = ExtResource("1_k5aw6")
 health = 20.0
 speed = 150.0
 separation_distance = 50.0
+death_money = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(3, 5.96046e-08)

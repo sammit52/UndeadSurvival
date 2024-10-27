@@ -1,14 +1,17 @@
-extends CharacterBody2D
+extends Area2D
 
 @export var speed: float = 200.0  # Movement speed in pixels per second
 @export var health = 100
 @export var assault_bullet_scene : PackedScene
 @export var shotgun_bullet_scene : PackedScene
 @onready var marker_2d: Marker2D = $Marker2D
+@onready var money_label = get_tree().root.get_node("World/UILayer/Money/Label")
 
-var guns = {0:["Pistol",10,99,false,0.0,0,400],1:["Uzi",2,50,true,0.075,7.5,225],2:["AK47",2,50,true,0.2,1.5,400],3:["Sniper",25,50,false,2.5,3,500],4:["Shotgun",2,50,false,0.5,7.5,200],5:["Gun5",2,50,true,0.2,1,400],6:["Gun6",2,50,true,0.2,1,400],7:["Gun7",2,50,true,0.2,1,400],8:["Gun8",2,50,true,0.2,1,400],9:["Gun9",2,50,true,0.2,1,400]}
+var money = 0
+
+var guns = {0:["Pistol",10,99,false,0.5,0,400],1:["Uzi",2,50,true,0.075,7.5,225],2:["AK47",2,50,true,0.2,1.5,350],3:["Sniper",75,50,false,2.5,3,500],4:["Shotgun",10,50,false,1,7.5,150],5:["Gun5",2,50,true,0.2,1,400],6:["Gun6",2,50,true,0.2,1,400],7:["Gun7",2,50,true,0.2,1,400],8:["Gun8",2,50,true,0.2,1,400],9:["Gun9",2,50,true,0.2,1,400]}
 #name, damage, max ammo, automatic?, time, variance, speed
-var gun_names = ["Pistol", "Gun1", "Gun2", "Gun3", "Gun4", "Gun5", "Gun6", "Gun7", "Gun8", "Gun9"] # List of gun animation names
+#var gun_names = ["Pistol", "Gun1", "Gun2", "Gun3", "Gun4", "Gun5", "Gun6", "Gun7", "Gun8", "Gun9"] # List of gun animation names
 var unlocked_gun_index = 0
 var unlocked_guns = [0,1,2,3,4]
 var can_shoot = true
@@ -21,6 +24,7 @@ var current_gun_index = 0
 func _ready():
 	# Set the initial gun animation
 	equip_gun(current_gun_index)
+
 	
 func equip_gun(index: int):
 	gun_sprite.animation = guns[index][0]
@@ -28,6 +32,8 @@ func equip_gun(index: int):
 
 func _process(delta: float) -> void:
 	var velocity: Vector2 = Vector2.ZERO
+	
+	money_label.text = "Money: " + str(money)
 	
 	# Handle input
 	if Input.is_action_pressed("right"):
@@ -42,12 +48,10 @@ func _process(delta: float) -> void:
 	# Normalize the velocity vector to prevent faster diagonal movement
 	velocity = velocity.normalized() * speed
 
-	# Set the velocity in CharacterBody2D
-	self.velocity = velocity
+	# Move the Area2D by updating its position
+	position += velocity * delta
 
-	# Move the character using the built-in method
-	move_and_slide()
-	
+	# Rotate the Area2D to face the mouse
 	var mouse_position = get_global_mouse_position()
 	var direction = (mouse_position - global_position).angle()
 	rotation = direction
@@ -123,7 +127,8 @@ func _process(delta: float) -> void:
 		
 	
 	if Input.is_action_just_released("shoot") and not can_shoot:
-		if current_gun_index not in [4 , 7]:
+		# This needs to be for all non automatics
+		if guns[current_gun_index][3]:
 			can_shoot = true
 		else:
 			if $Timer.is_stopped():
@@ -166,3 +171,23 @@ func _input(event):
 # Automatic gun stuff
 func _on_timer_timeout() -> void:
 	can_shoot = true
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("zombie"):
+		if $Timer2.is_stopped():
+			$Timer2.wait_time = 0.5
+			$Timer2.start()
+
+func death():
+	# Redirect to death screen that has exit or menu on it plus with total monies.
+	pass
+
+func add_money(amount: int):
+	money += amount
+
+func _on_timer_2_timeout() -> void:
+	health =- 10
+	if health < 0:
+		death()
+		print("Dead lmao")

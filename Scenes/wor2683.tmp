@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c6wbne673b7si"]
+[gd_scene load_steps=9 format=3 uid="uid://c6wbne673b7si"]
 
 [ext_resource type="Script" path="res://Code/world.gd" id="1_ehgwm"]
 [ext_resource type="PackedScene" uid="uid://dbhnj6xsyabo7" path="res://Scenes/player.tscn" id="1_y0wo7"]
@@ -12,29 +12,27 @@
 normal = Vector2(0, 1)
 distance = 63.0
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_tjkaw"]
-
 [node name="World" type="Node2D"]
 script = ExtResource("1_ehgwm")
 
-[node name="World Barrier" type="Area2D" parent="." groups=["barrier"]]
+[node name="World Barrier" type="StaticBody2D" parent="."]
 position = Vector2(-39, -41)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World Barrier" groups=["barrier"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World Barrier"]
 position = Vector2(93, -23)
 shape = SubResource("WorldBoundaryShape2D_5tr6o")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="World Barrier" groups=["barrier"]]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World Barrier"]
 position = Vector2(-23, 95)
 rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_5tr6o")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="World Barrier" groups=["barrier"]]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="World Barrier"]
 position = Vector2(2022, 868)
 rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_5tr6o")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="World Barrier" groups=["barrier"]]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="World Barrier"]
 position = Vector2(1717, 1180)
 rotation = -3.14159
 shape = SubResource("WorldBoundaryShape2D_5tr6o")
@@ -53,32 +51,7 @@ boss_zombie = ExtResource("7_ylor6")
 
 [node name="Boss_Zombie_Timer" type="Timer" parent="Zombie Spawner"]
 
-[node name="UILayer" type="CanvasLayer" parent="."]
-
-[node name="Money" type="Control" parent="UILayer"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="UILayer/Money"]
-layout_mode = 0
-offset_left = 248.0
-offset_top = 6.0
-offset_right = 397.0
-offset_bottom = 64.0
-theme_override_font_sizes/font_size = 42
-text = "Money:
-"
-
-[node name="Health" type="Control" parent="UILayer"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UILayer/Health"]
-sprite_frames = SubResource("SpriteFrames_tjkaw")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [connection signal="timeout" from="Zombie Spawner/Zombie_Timer" to="Zombie Spawner" method="_on_zombie_timer_timeout"]
 [connection signal="timeout" from="Zombie Spawner/Boss_Zombie_Timer" to="Zombie Spawner" method="_on_boss_zombie_timer_timeout"]

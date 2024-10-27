@@ -7,10 +7,12 @@ var player : Node2D = null
 var velocity : Vector2 = Vector2.ZERO 
 var current_velocity : Vector2 = Vector2.ZERO
 @export var direction_smoothing : float = 0.1 # Smoothing factor (0 = no smoothing, 1 = instant)
+@export var death_money = 100
 
 var target_offset : Vector2 = Vector2.ZERO
 var sprite = null
 var timer = null
+var death_money_paid = false
 
 var can_spawn_baby_zombie = true
 
@@ -64,10 +66,15 @@ func apply_separation(zombies):
 	return separation_force * 30.0  # Separation strength
 
 func take_damage(damage):
+	if death_money_paid:
+		return
 	reduce_opacity()
-	health -= damage
-	if health <= 0:
+	health-= damage
+	if health <= 0 and not death_money_paid:
+		death_money_paid = true
+		player.money += death_money
 		queue_free()
+
 
 func reduce_opacity() -> void:
 	if sprite:
