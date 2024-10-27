@@ -4,6 +4,7 @@ extends Node
 
 func _ready():
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	$UILayer/PauseMenu.hide()  # Hide the pause overlay initially
 
 func _input(event: InputEvent) -> void:
 	  
@@ -15,27 +16,59 @@ func _input(event: InputEvent) -> void:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 			full_screen = true
 		
+
 var is_paused: bool = false  # Track whether the game is paused
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_cancel"):  # This is typically mapped to the Esc key
+	# Check for Escape key press to toggle pause state
+	if Input.is_action_just_pressed("ui_cancel"):
 		toggle_pause()
 
 func toggle_pause() -> void:
 	is_paused = !is_paused  # Toggle the pause state
+
 	if is_paused:
-		get_tree().paused = true  # Pause the game
-		show_pause_menu()  # Call a function to show the pause menu
+		pause_game()  # Call function to pause specific nodes
+		show_pause_overlay()  # Show the pause overlay
 	else:
-		get_tree().paused = false  # Unpause the game
-		hide_pause_menu()  # Call a function to hide the pause menu
+		resume_game()  # Call function to resume specific nodes
+		hide_pause_overlay()  # Hide the pause overlay
 
-func show_pause_menu() -> void:
-	# Here, you can show your pause menu UI
-	print("Game Paused")  # Placeholder for debugging
-	# Example: get_node("PauseMenu").show() if you have a pause menu node
+func pause_game() -> void:
+	# Pause player
+	var player = get_node("Player")
+	player.set_process(false)  # Stop processing for the player
+	player.set_physics_process(false)  # Stop physics processing for the player
+	for bullet in get_tree().get_nodes_in_group("bullet"):
+		bullet.set_physics_process(false)  # Stop processing for each bullet
+		bullet.set_process(false)
 
-func hide_pause_menu() -> void:
-	# Here, you can hide your pause menu UI
-	print("Game Resumed")  # Placeholder for debugging
-	# Example: get_node("PauseMenu").hide() if you have a pause menu node
+	# Pause the zombie spawner
+	var spawner = get_node("Zombie Spawner")
+	spawner.set_process(false)  # Stop processing for the spawner
+	for zombie in spawner.get_children():  # Loop through all children of the Zombies node
+		zombie.set_process(false)  # Stop processing for each zombie
+
+func resume_game() -> void:
+	# Resume player
+	var player = get_node("Player")
+	player.set_process(true)  # Resume processing for the player
+	player.set_physics_process(true)  # Resume physics processing for the player
+	for bullet in get_tree().get_nodes_in_group("bullet"):
+		bullet.set_physics_process(true)  # Stop processing for each bullet
+		bullet.set_process(true)
+
+	# Resume the zombie spawner
+	var spawner = get_node("Zombie Spawner")
+	spawner.set_process(true)  # Resume processing for the spawner
+	for zombie in spawner.get_children():  # Loop through all children of the Zombies node
+		zombie.set_process(true)  # Stop processing for each zombie
+
+func show_pause_overlay() -> void:
+	$UILayer/PauseMenu.show()
+	print("Game Paused")  # Debug message
+
+func hide_pause_overlay() -> void:
+	$UILayer/PauseMenu.hide()
+	print("Game Resumed")  # Debug message
+		

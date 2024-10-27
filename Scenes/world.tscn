@@ -77,8 +77,14 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UILayer/Health"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UILayer/Health" groups=["Bullet"]]
 sprite_frames = SubResource("SpriteFrames_tjkaw")
+
+[node name="PauseMenu" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="timeout" from="Zombie Spawner/Zombie_Timer" to="Zombie Spawner" method="_on_zombie_timer_timeout"]
 [connection signal="timeout" from="Zombie Spawner/Boss_Zombie_Timer" to="Zombie Spawner" method="_on_boss_zombie_timer_timeout"]
