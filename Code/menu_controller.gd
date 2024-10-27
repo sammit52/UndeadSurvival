@@ -20,6 +20,7 @@ var display_resolution : Vector2i = DisplayServer.screen_get_size()
 @onready var resolution_option_button = get_node("%Resolution_Optionbutton")
 @onready var option_container = get_node("%OptionContainer")
 @onready var main_container = get_node("%MainContainer")
+@onready var title = get_node("%Label")
 
 
 
@@ -98,6 +99,7 @@ func _on_start_button_pressed():
 
 func _on_option_button_pressed():
 	option_container.visible = true
+	title.visible = false
 	main_container.visible = false
 
 
@@ -142,6 +144,7 @@ func _on_sfx_h_scroll_bar_value_changed(value):
 func _on_return_button_pressed():
 	main_container.visible = true
 	option_container.visible = false
+	title.visible = true
 
 
 func _on_apply_button_pressed():

@@ -12,7 +12,7 @@ var zombie_spawn_time = 5
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func _ready():
-	boss_zombie_timer.wait_time = 60
+	boss_zombie_timer.wait_time = 90
 	boss_zombie_timer.start()
 		
 func _process(delta: float) -> void:
@@ -24,18 +24,18 @@ func _process(delta: float) -> void:
 	
 	if can_spawn_boss_zombie:
 		can_spawn_boss_zombie = false
-		boss_zombie_timer.wait_time = 60
+		boss_zombie_timer.wait_time = 90
 		boss_zombie_timer.start()
 		spawn_boss_zombie()
 	
 func spawn_zombie():
-	var i = randi_range(1,10)
+	var i = randi_range(1,11)
 	var zombie = null
 	if 1 <= i and i <= 5:
 		zombie = normal_zombie.instantiate()
 	elif 6 <= i and i <= 9:
 		zombie = fast_zombie.instantiate()
-	elif i == 10:
+	elif i > 9:
 		zombie = big_zombie.instantiate()
 	zombie.position = Vector2(1950, randf_range(0,1090))
 	add_child(zombie)

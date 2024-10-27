@@ -5,17 +5,25 @@ extends Area2D
 @export var assault_bullet_scene : PackedScene
 @export var shotgun_bullet_scene : PackedScene
 @onready var marker_2d: Marker2D = $Marker2D
-@onready var money_label = get_tree().root.get_node("World/UILayer/Money/Label")
+@onready var health_bar = get_tree().root.get_node("World/UILayer/Health/HealthBar")
+@onready var health_label = get_tree().root.get_node("World/UILayer/Health/Label")
+
+var bullet_speed_upgrade : float = 1
+var bullet_accuracy_upgrade : float = 1
+var bullet_damage_upgrade : float = 1
+
+
 
 var money = 0
 
-var guns = {0:["Pistol",10,99,false,0.5,0,400],1:["Uzi",2,50,true,0.075,7.5,225],2:["AK47",2,50,true,0.2,1.5,350],3:["Sniper",75,50,false,2.5,3,500],4:["Shotgun",10,50,false,1,7.5,150],5:["Gun5",2,50,true,0.2,1,400],6:["Gun6",2,50,true,0.2,1,400],7:["Gun7",2,50,true,0.2,1,400],8:["Gun8",2,50,true,0.2,1,400],9:["Gun9",2,50,true,0.2,1,400]}
+var guns = {0:["Pistol",5*bullet_damage_upgrade,99,false,0.5,3*bullet_accuracy_upgrade,400*bullet_speed_upgrade],1:["Uzi",1.5*bullet_damage_upgrade,50,true,0.1,7.5*bullet_accuracy_upgrade,225*bullet_speed_upgrade],2:["AK47",5*bullet_damage_upgrade,50,true,0.25,5*bullet_accuracy_upgrade,350*bullet_speed_upgrade],3:["Sniper",75*bullet_damage_upgrade,50,false,2,2*bullet_accuracy_upgrade,500*bullet_speed_upgrade],4:["Shotgun",10*bullet_damage_upgrade,50,false,1,7.5*bullet_accuracy_upgrade,150*bullet_speed_upgrade],5:["MG42",1*bullet_damage_upgrade,50,true,0.05,10*bullet_accuracy_upgrade,150*bullet_speed_upgrade],6:["M16",15*bullet_damage_upgrade,50,true,0.25,3*bullet_accuracy_upgrade,400*bullet_speed_upgrade],7:["Scar",22.5*bullet_damage_upgrade,50,true,0.3,4*bullet_accuracy_upgrade,350*bullet_speed_upgrade],8:["Drum Gun",0.5*bullet_damage_upgrade,50,true,0.01,20*bullet_accuracy_upgrade,200*bullet_speed_upgrade],9:["Mechanical Shotgun",15,50,true,0.5,7.5,200]}
 #name, damage, max ammo, automatic?, time, variance, speed
 #var gun_names = ["Pistol", "Gun1", "Gun2", "Gun3", "Gun4", "Gun5", "Gun6", "Gun7", "Gun8", "Gun9"] # List of gun animation names
 var unlocked_gun_index = 0
-var unlocked_guns = [0,1,2,3,4]
+var unlocked_guns = [0]
 var can_shoot = true
 var current_gun_index = 0
+var can_be_hurt = true
 
 
 # Reference to the AnimatedSprite2D node
@@ -25,7 +33,6 @@ func _ready():
 	# Set the initial gun animation
 	equip_gun(current_gun_index)
 
-	
 func equip_gun(index: int):
 	gun_sprite.animation = guns[index][0]
 	
@@ -33,7 +40,9 @@ func equip_gun(index: int):
 func _process(delta: float) -> void:
 	var velocity: Vector2 = Vector2.ZERO
 	
-	money_label.text = "Money: " + str(money)
+	
+	health_bar.value = health
+	health_label.text = "Health: %s" % health
 	
 	# Handle input
 	if Input.is_action_pressed("right"):
@@ -106,7 +115,7 @@ func _process(delta: float) -> void:
 			$Timer.start()
 		var bullet
 		#checking if shotgun or not, probably a better way to do this.
-		if current_gun_index not in [4 , 7]:
+		if current_gun_index not in [4 , 9]:
 			bullet = assault_bullet_scene.instantiate()
 			bullet.variance = guns[current_gun_index][5]
 			bullet.speed = guns[current_gun_index][6]
@@ -164,9 +173,9 @@ func _input(event):
 				gun_select = 9
 			_:
 				pass
-		current_gun_index = gun_select
 		if gun_select in unlocked_guns:
 			equip_gun(gun_select)
+			current_gun_index = gun_select
 
 # Automatic gun stuff
 func _on_timer_timeout() -> void:
@@ -175,9 +184,11 @@ func _on_timer_timeout() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("zombie"):
-		if $Timer2.is_stopped():
-			$Timer2.wait_time = 0.5
+		if can_be_hurt:
+			health -= 10
+			$Timer2.wait_time = 0.2
 			$Timer2.start()
+			can_be_hurt = false
 
 func death():
 	# Redirect to death screen that has exit or menu on it plus with total monies.
@@ -187,7 +198,4 @@ func add_money(amount: int):
 	money += amount
 
 func _on_timer_2_timeout() -> void:
-	health =- 10
-	if health < 0:
-		death()
-		print("Dead lmao")
+	can_be_hurt = true
